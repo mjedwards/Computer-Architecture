@@ -72,7 +72,7 @@ def parse_commandline(argv):
     if len(argv) == 1:
         inputfile = "-"
         outputfile = "-"
-
+ 
     elif len(argv) == 2:
         inputfile = argv[1]
         outputfile = "-"
