@@ -11,6 +11,8 @@ class CPU:
         self.reg = [0] * 8 
         self.pc = 0
         # self.fl = "00001000"
+
+        self.SP = 7
         
 
     def load(self):
@@ -98,6 +100,8 @@ class CPU:
         MUL = 0b10100010
         ADD = 0b10100000 
         SUB = 0b10100001
+        POP = 0b01000110
+        PUSH = 0b01000101
         running = True
         while running:
             a = self.ram_read(self.pc)
@@ -119,13 +123,28 @@ class CPU:
                 self.pc += 3
 
             elif a == MUL:
-                self.alu("MUL", a, b)
+                self.alu("MUL", b, c)
 
             elif a == ADD:
-                self.alu("ADD", a, b)
+                self.alu("ADD", b, c)
 
             elif a == SUB:
-                self.alu("SUB", a, b)
+                self.alu("SUB", b, c)
+
+            elif a == POP:
+                self.reg[self.SP] -= 1
+                _num = self.ram[self.pc+1]
+                value = self.reg[_num]  
+                location = self.reg[self.SP]
+                self.ram[location] = value
+                self.pc += 2
+
+            elif a == PUSH:
+
+                value = self.ram_read(self.reg[self.SP])
+                self.reg[b] = value
+                self.reg[self.SP] += 1
+                self.pc += 2
 
             elif a == NOP:
                 pass
