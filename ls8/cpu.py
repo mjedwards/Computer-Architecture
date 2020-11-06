@@ -102,6 +102,8 @@ class CPU:
         SUB = 0b10100001
         POP = 0b01000110
         PUSH = 0b01000101
+        CALL = 0b01010000
+        RETURN = 0b00010001
         running = True
         while running:
             a = self.ram_read(self.pc)
@@ -140,11 +142,22 @@ class CPU:
                 self.pc += 2
 
             elif a == PUSH:
-
                 value = self.ram_read(self.reg[self.SP])
                 self.reg[b] = value
                 self.reg[self.SP] += 1
                 self.pc += 2
+
+            elif a == CALL:
+                _return = self.pc + 2
+                self.reg[self.SP] -= 1
+                self.ram[self.reg[self.SP]] = _return
+                _num = self.ram[self.pc + 1]
+                _destination = self.reg[_num]
+            
+            elif a == RETURN:
+                _return = self.ram[self.reg[self.SP]]
+                self.reg[self.SP] += 1
+                self.pc = _return
 
             elif a == NOP:
                 pass
