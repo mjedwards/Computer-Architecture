@@ -73,6 +73,8 @@ class CPU:
             else:
                 self.fl = 0b00000000
 
+            self.pc += 3
+
         else:
             raise Exception("Unsupported ALU operation")
 
