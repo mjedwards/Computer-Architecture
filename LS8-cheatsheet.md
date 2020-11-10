@@ -2,7 +2,7 @@
 
 This document is non-authoritative. In cases where it differs from the spec, the
 spec is correct.
-
+ 
 ## ALU ops
 ```
 ADD  10100000 00000aaa 00000bbb
